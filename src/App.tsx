@@ -65,7 +65,7 @@ const getBestKey = (pairs: number, metric: 'time' | 'moves') =>
   `matchPairs.best.${pairs}.${metric}`
 
 function App() {
-  const [mode, setMode] = useState<Mode>(MODES[0])
+  const mode = MODES[0]
   const [deck, setDeck] = useState<Card[]>(() => createDeck(MODES[0].pairs))
   const [firstPick, setFirstPick] = useState<Card | null>(null)
   const [secondPick, setSecondPick] = useState<Card | null>(null)
@@ -147,20 +147,6 @@ function App() {
   const clearTimers = () => {
     timeoutsRef.current.forEach((id) => window.clearTimeout(id))
     timeoutsRef.current = []
-  }
-
-  const handleRestart = (nextMode: Mode = mode) => {
-    clearTimers()
-    setMode(nextMode)
-    setDeck(createDeck(nextMode.pairs))
-    setFirstPick(null)
-    setSecondPick(null)
-    setMoves(0)
-    setLockBoard(false)
-    setStartedAt(null)
-    setElapsed(0)
-    setPhase('idle')
-    setCountdown(3)
   }
 
   const handlePlay = () => {
