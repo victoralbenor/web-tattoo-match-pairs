@@ -203,6 +203,11 @@ function App() {
   }
 
   const handleFlip = (card: Card) => {
+    if (phase === 'idle') {
+      handlePlay()
+      return
+    }
+
     if (phase !== 'playing' || lockBoard || card.isFlipped || card.isMatched)
       return
 
@@ -293,7 +298,7 @@ function App() {
         {deck.map((card) => (
           <button
             key={card.id}
-            className={`card ${card.isFlipped || card.isMatched ? 'card--flipped' : ''}`}
+            className={`card ${card.isFlipped || card.isMatched ? 'card--flipped' : ''} ${card.isMatched ? 'card--matched' : ''}`}
             onClick={() => handleFlip(card)}
             aria-label="Flip card"
           >
